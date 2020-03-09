@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:itsallwidgets/src/providers/menu_provider.dart';
+import 'package:itsallwidgets/src/utils/icono_string_util.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -16,29 +17,35 @@ class HomePage extends StatelessWidget {
 
   Widget _lista() {
     // print(menuProvider.opciones);
-    // menuProvider.cargarData();
+    //menuProvider.cargarData();
     return FutureBuilder(
       future: menuProvider.cargarData(),
       initialData: [],
       builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+        // print(snapshot); OBJETO COMPLETO
+        // print(snapshot.data); // CONTENIDO
+
         return ListView(
-          children: _listaItems(snapshot.data),
+          children: _listaItems(snapshot.data, context),
         );
       },
     );
   }
 
-  List<Widget> _listaItems(List<dynamic> data) {
+  List<Widget> _listaItems(List<dynamic> data, BuildContext context) {
     final List<Widget> opciones = [];
     data.forEach((opt) {
       final widgetTemp = ListTile(
         title: Text(opt['texto']),
-        leading: Icon(
-          Icons.account_circle,
-          color: Colors.blue,
-        ),
+        leading: getIcon(opt['icon']),
         trailing: Icon(Icons.keyboard_arrow_right),
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, opt['ruta']);
+          /*final route = MaterialPageRoute(builder: (context) => AlertPage());
+
+          Navigator.push(context, route);
+          */
+        },
       );
 
       opciones..add(widgetTemp)..add(Divider());
