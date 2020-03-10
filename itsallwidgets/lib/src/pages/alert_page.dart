@@ -33,6 +33,11 @@ class AlertPage extends StatelessWidget {
         barrierDismissible: true,
         builder: (context) {
           return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                20.0,
+              ),
+            ),
             title: Text('Titulo'),
             content: Column(
               mainAxisSize: MainAxisSize.min,
@@ -47,11 +52,15 @@ class AlertPage extends StatelessWidget {
             ),
             actions: <Widget>[
               FlatButton(
-                child: Text('Cancelar'),
+                child: Text(
+                  'Cancelar',
+                ),
                 onPressed: () => Navigator.of(context).pop(),
               ),
               FlatButton(
-                child: Text('Ok'),
+                child: Text(
+                  'Ok',
+                ),
                 onPressed: () {
                   return Navigator.of(context).pop();
                 },
